@@ -1,6 +1,4 @@
 "use client";
-
-import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import dynamic from "next/dynamic";
 import SolanaButton from "./components/SolanaButton";
 
@@ -22,9 +20,7 @@ export default function Home() {
       <div className="relative border p-2 rounded-lg w-full max-w-md flex-col flex gap-4 place-items-center justify-center">
         <div className="flex flex-col">
           <h1 className="text-2xl font-bold text-center">Stake</h1>
-          <p className="text-sm text-gray-500">
-            Stake your SOL to earn rewards
-          </p>
+          <p className="text-sm text-gray-500">Stake SOL for fun</p>
         </div>
         <SolanaButton>Greet</SolanaButton>
       </div>
