@@ -5,7 +5,7 @@ resolution = true
 skip-lint = false
 
 [programs.devnet]
-token_staking = "7yKPtWXyxycfPc7viu939gUxub2XogBdm12X1Fi2sbbi"
+token_staking = "Zch9tAY2N9rwkP8fevkUE2xUFepYqAM1xn7kQZFAeFU"
 
 [registry]
 url = "https://api.apr.dev"
