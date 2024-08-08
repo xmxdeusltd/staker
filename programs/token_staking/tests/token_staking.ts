@@ -90,7 +90,7 @@ describe("token_staking", () => {
         stakingPool: stakingPoolPda,
         authority: provider.wallet.publicKey,
         systemProgram: anchor.web3.SystemProgram.programId,
-      })
+      } as any)
       .rpc();
 
     const stakingPool = await program.account.stakingPool.fetch(stakingPoolPda);
@@ -114,7 +114,7 @@ describe("token_staking", () => {
       .accounts({
         stakingPool: stakingPoolPda,
         authority: provider.wallet.publicKey,
-      })
+      } as any)
       .rpc();
 
     const stakingPool = await program.account.stakingPool.fetch(stakingPoolPda);
@@ -129,7 +129,7 @@ describe("token_staking", () => {
       .accounts({
         stakingPool: stakingPoolPda,
         authority: provider.wallet.publicKey,
-      })
+      } as any)
       .rpc();
 
     const stakingPoolv2 = await program.account.stakingPool.fetch(
@@ -171,7 +171,7 @@ describe("token_staking", () => {
           userAccount: user.publicKey,
           stakingPoolAccount: stakingPoolPda,
           systemProgram: anchor.web3.SystemProgram.programId,
-        })
+        } as any)
         .signers([user])
         .rpc();
 
@@ -237,7 +237,7 @@ describe("token_staking", () => {
           userAccount: user.publicKey,
           stakingPoolAccount: stakingPoolPda,
           systemProgram: anchor.web3.SystemProgram.programId,
-        })
+        } as any)
         .signers([user])
         .rpc();
 
@@ -259,7 +259,7 @@ describe("token_staking", () => {
               userAccount: user.publicKey,
               stakingPoolAccount: stakingPoolPda,
               systemProgram: anchor.web3.SystemProgram.programId,
-            })
+            } as any)
             .signers([user])
             .rpc();
           expect.fail("Unstake should have failed");
@@ -296,7 +296,7 @@ describe("token_staking", () => {
         userAccount: user.publicKey,
         stakingPoolAccount: stakingPoolPda,
         systemProgram: anchor.web3.SystemProgram.programId,
-      })
+      } as any)
       .signers([user])
       .rpc();
 
@@ -333,7 +333,7 @@ describe("token_staking", () => {
         userAccount: user.publicKey,
         stakingPoolAccount: stakingPoolPda,
         systemProgram: anchor.web3.SystemProgram.programId,
-      })
+      } as any)
       .signers([user])
       .rpc();
 
