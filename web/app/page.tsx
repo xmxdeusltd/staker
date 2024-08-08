@@ -1,6 +1,6 @@
 "use client";
 import dynamic from "next/dynamic";
-import SolanaButton from "./components/SolanaButton";
+import StakingControl from "./components/StakingControl";
 
 // not the most optimal way but fixes hydration errors
 const WalletMultiButtonDynamic = dynamic(
@@ -22,7 +22,7 @@ export default function Home() {
           <h1 className="text-2xl font-bold text-center">Stake</h1>
           <p className="text-sm text-gray-500">Stake SOL for fun</p>
         </div>
-        <SolanaButton>Greet</SolanaButton>
+        <StakingControl />
       </div>
     </main>
   );
