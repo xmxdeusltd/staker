@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import { Connection, PublicKey } from "@solana/web3.js";
 import * as anchor from "@coral-xyz/anchor";
+import { type TokenStaking } from "../../../../programs/token_staking/target/types/token_staking";
 import IDL from "../../../../programs/token_staking/target/idl/token_staking.json";
 
 export async function POST(req: Request) {
-  const { publicKey } = await req.json();
+  const { publicKey, amount } = await req.json();
 
   const connection = new Connection(process.env.RPC_URL!, "confirmed");
   const payer = new PublicKey(publicKey);
@@ -14,15 +15,27 @@ export async function POST(req: Request) {
     { publicKey: payer } as anchor.Wallet,
     { commitment: "confirmed" }
   );
-  const program = new anchor.Program(IDL, provider);
+  const program = new anchor.Program(IDL as TokenStaking, provider);
+
+  const [stakingPoolPda] = PublicKey.findProgramAddressSync(
+    [Buffer.from("staking_pool")],
+    program.programId
+  );
+
+  const [userPda] = PublicKey.findProgramAddressSync(
+    [Buffer.from("user"), payer.toBuffer()],
+    program.programId
+  );
 
   const tx = await program.methods
-    .initialize()
+    .stake(new anchor.BN(amount))
     .accounts({
-      myAccount: payer,
-      user: payer,
+      stakingPool: stakingPoolPda,
+      user: userPda,
+      userAccount: payer,
+      stakingPoolAccount: stakingPoolPda,
       systemProgram: anchor.web3.SystemProgram.programId,
-    })
+    } as any)
     .instruction();
 
   const transaction = new anchor.web3.Transaction().add(tx);
@@ -30,11 +43,7 @@ export async function POST(req: Request) {
   transaction.recentBlockhash = latestBlockhash.blockhash;
   transaction.feePayer = payer;
   transaction.lastValidBlockHeight = latestBlockhash.lastValidBlockHeight;
-  console.log(
-    "transaction",
-    transaction.lastValidBlockHeight,
-    transaction.recentBlockhash
-  );
+
   const serializedTransaction = transaction.serialize({
     requireAllSignatures: false,
   });
